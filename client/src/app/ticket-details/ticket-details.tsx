@@ -3,7 +3,7 @@ import { useTicketDetailContext } from '../context/TicketDetailContext'
 import { useTicketsContext } from '../context/TicketsContext';
 import { useSWRContext } from '../context/SWRContext';
 import { useParams } from 'react-router-dom';
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { TicketDetailReducerActionType, IUser } from '../types';
 import axios from 'axios';
 import { Loader2 } from 'lucide-react';
@@ -75,12 +75,12 @@ export function TicketDetails() {
     }
   }
 
-  const assignUser = () => {
+  const assignUser = useCallback(() => {
     return <div className='w-full mt-8'>
       <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Assign to an user:</label>
       <div className='flex items-center justify-center'>
         <select
-          value={assigneeId}
+          value={Number(assigneeId)}
           onChange={(e) => handleAssignUser(true, e)}
           id="countries" className="w-6/12 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value={0} selected>Choose a user</option>
@@ -93,8 +93,7 @@ export function TicketDetails() {
         </button>}
       </div>
     </div >
-
-  }
+  }, [assigneeId])
 
   const handleOnChangeStatus = async () => {
     try {
@@ -133,7 +132,7 @@ export function TicketDetails() {
   }
 
   return (
-    <div className={'relative top-8'}>
+    <div className={'relative top-20'}>
       {ticketDetail ?
         <div className="w-full p-4 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
           <h5 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white"><p>Description: {description}</p></h5>
@@ -143,7 +142,7 @@ export function TicketDetails() {
             {assignUser()}
           </div>
         </div>
-        : <Loader2 className='justify-cent h-6 w-6 animate-spin' />
+        : <Loader2 className='absolute left-1/2 top-40 h-32 w-32 animate-spin' />
       }
     </div>
   );

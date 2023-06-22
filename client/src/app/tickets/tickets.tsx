@@ -143,7 +143,7 @@ export function Tickets(props: TicketsProps) {
     return <ul>
       {ticketsByType.map((t, i) => (
         <li
-          className='hover:scale-110 transition ease-in-out delay-150 hover:-translate-y-2 my-8 bg-indigo-500 shadow-indigo-500/50 shadow-2xl cursor-pointer grid grid-cols-2 px-5 py-4 hover:text-white rounded-lg cursor-pointer'
+          className='hover:scale-y-115 transition ease-in-out delay-150 hover:-translate-y-2 my-8 bg-indigo-500 shadow-indigo-500/50 shadow-2xl cursor-pointer grid grid-cols-2 px-5 py-4 hover:text-white rounded-lg cursor-pointer'
           key={t.id}
           onClick={() => handleOnClickTicket(t.id)}
         >
@@ -159,7 +159,7 @@ export function Tickets(props: TicketsProps) {
   }
 
   return (
-    <div className='relative top-8'>
+    <div className='relative top-20'>
       {addTicketForm()}
       <h2>Tickets</h2>
       {renderFilter()}
@@ -167,7 +167,7 @@ export function Tickets(props: TicketsProps) {
         {tickets ? (
           renderListTicket()
         ) : (
-          <Loader2 className='justify-cent h-6 w-6 animate-spin' />
+          <Loader2 className='absolute left-1/2 top-3/4 h-32 w-32 animate-spin' />
         )}
       </div>
       {showToast && (

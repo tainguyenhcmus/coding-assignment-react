@@ -6,7 +6,16 @@ export default {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
     '^.+\\.[tj]sx?$': [
       '@swc/jest',
-      { jsc: { transform: { react: { runtime: 'automatic' } } } },
+      {
+        jsc: {
+          transform: { react: { runtime: 'automatic' } }, parser: {
+            "syntax": "typescript",
+            "tsx": true
+          },
+          "target": "es5",
+          "loose": false
+        }
+      },
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
